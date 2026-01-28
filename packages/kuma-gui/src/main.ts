@@ -1,6 +1,8 @@
 // Importing styles here enforces a consistent stylesheet order between the Vite development server and the production build. See https://github.com/vitejs/vite/issues/4890.
 import './assets/styles/main.scss'
 
+import './polyfills'
+
 import { build } from '@kumahq/container'
 import { createApp } from 'vue'
 
