@@ -47,6 +47,27 @@ import '@kong-ui-public/app-layout/dist/style.css'
       background-color: var(--icon-color, var(--icon-color-dataplane-standard, currentColor));
     }
   }
+  @keyframes icon-dataplane-zone-proxy {
+    100% {
+      -webkit-mask-image: var(--icon-dataplane-zone-proxy-glyph);
+      mask-image: var(--icon-dataplane-zone-proxy-glyph);
+      background-color: var(--icon-color, var(--icon-color-dataplane-zone-proxy, currentColor));
+    }
+  }
+  @keyframes icon-dataplane-zone-ingress {
+    100% {
+      -webkit-mask-image: var(--icon-dataplane-zone-ingress-glyph);
+      mask-image: var(--icon-dataplane-zone-ingress-glyph);
+      background-color: var(--icon-color, var(--icon-color-dataplane-zone-ingress, currentColor));
+    }
+  }
+  @keyframes icon-dataplane-zone-egress {
+    100% {
+      -webkit-mask-image: var(--icon-dataplane-zone-egress-glyph);
+      mask-image: var(--icon-dataplane-zone-egress-glyph);
+      background-color: var(--icon-color, var(--icon-color-dataplane-zone-egress, currentColor));
+    }
+  }
   @keyframes icon-dataplane-builtin {
     100% {
       -webkit-mask-image: var(--icon-dataplane-builtin-glyph);
@@ -305,6 +326,9 @@ import '@kong-ui-public/app-layout/dist/style.css'
     --icon-zone-egress-glyph: url('@/assets/images/navigation/icon-zone-egresses.svg?inline');
     --icon-configuration-glyph: url('@/assets/images/navigation/icon-configuration.svg?inline');
     --icon-dataplane-standard-glyph: url('@/assets/images/east-west.svg?inline');
+    --icon-dataplane-zone-proxy-glyph: url('@/assets/images/network.svg?inline');
+    --icon-dataplane-zone-ingress-glyph: url('@/assets/images/network.svg?inline');
+    --icon-dataplane-zone-egress-glyph: url('@/assets/images/network.svg?inline');
     --icon-dataplane-builtin-glyph: url('@/assets/images/gateway.svg?inline');
     --icon-dataplane-delegated-glyph: url('@/assets/images/gateway.svg?inline');
     --icon-subscription-glyph: url('@/assets/images/subscriptions.svg?inline');
@@ -342,8 +366,11 @@ import '@kong-ui-public/app-layout/dist/style.css'
     /*end deprecated */
 
     --icon-dataplane-standard: icon-dataplane-standard;
-    --icon-dataplane-builtin: icon-dataplane-standard;
-    --icon-dataplane-delegated: icon-dataplane-standard;
+    --icon-dataplane-zone-proxy: icon-dataplane-zone-proxy;
+    --icon-dataplane-zone-ingress: icon-dataplane-zone-ingress;
+    --icon-dataplane-zone-egress: icon-dataplane-zone-egress;
+    --icon-dataplane-builtin: icon-dataplane-builtin;
+    --icon-dataplane-delegated: icon-dataplane-delegated;
     --icon-subscription: icon-subscription;
     --icon-policy: icon-policy;
 

@@ -16,6 +16,9 @@ const dpTypes = {
   builtin: 'builtin',
   delegated: 'delegated',
   standard: 'standard',
+  zoneProxy: 'zone-proxy',
+  zoneIngress: 'zone-ingress',
+  zoneEgress: 'zone-egress',
 } as const
 
 export const DataplaneOverview = {
@@ -30,6 +33,8 @@ export const DataplaneOverview = {
     const services = tags.filter((tag) => tag.label === 'kuma.io/service').map(({ value }) => value)
     const zone = tags.find((tag) => tag.label === 'kuma.io/zone')?.value
     const labels = typeof item.labels !== 'undefined' ? item.labels : {}
+    const isIngress = typeof labels['kuma.io/listener-zoneingress'] !== 'undefined'
+    const isEgress = typeof labels['kuma.io/listener-zoneegress'] !== 'undefined'
 
     return {
       ...item,
@@ -41,7 +46,22 @@ export const DataplaneOverview = {
       },
       labels,
       dataplaneInsight,
-      dataplaneType: networking.type === 'gateway' ? dpTypes.builtin : typeof networking.gateway !== 'undefined' ? dpTypes.delegated : dpTypes.standard,
+      dataplaneType: (() => {
+        switch (true) {
+          case isIngress && isEgress:
+            return dpTypes.zoneProxy
+          case isIngress:
+            return dpTypes.zoneIngress
+          case isEgress:
+            return dpTypes.zoneEgress
+          case networking.type === 'gateway':
+            return dpTypes.builtin
+          case typeof networking.gateway !== 'undefined':
+            return dpTypes.delegated
+          default:
+            return dpTypes.standard
+        }
+      })(),
       status: (() => {
         const state = typeof dataplaneInsight.connectedSubscription !== 'undefined' ? states.online : states.offline
         if (networking.gateway) {

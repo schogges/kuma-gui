@@ -41,7 +41,7 @@
               :selected="route.params.dataplaneType"
               @change="(value: string) => route.update({ page: 1, dataplaneType: value })"
             >
-              <template #selected="{ item }: { item: 'all' | 'standard' | 'builtin' | 'delegated'}">
+              <template #selected="{ item }: { item: 'all' | 'standard' | 'builtin' | 'delegated' | 'zone-ingress' | 'zone-egress' }">
                 <XIcon
                   v-if="item !== 'all'"
                   :size="KUI_ICON_SIZE_40"
@@ -50,7 +50,7 @@
                 {{ t(`data-planes.type.${item}`) }}
               </template>
               <template
-                v-for="item in (['all', 'standard', 'builtin', 'delegated'] as const)"
+                v-for="item in (['all', 'standard', 'builtin', 'delegated', 'zone-ingress', 'zone-egress'] as const)"
                 :key="item"
                 #[`${item}-option`]
               >
@@ -146,7 +146,7 @@
                   >
                     <XCopyButton :text="service">
                       <XAction
-                        v-if="row.dataplaneType === 'standard'"
+                        v-if="['standard', 'zone-proxy', 'zone-ingress', 'zone-egress'].includes(row.dataplaneType)"
                         :to="{
                           name: 'service-detail-view',
                           params: {
