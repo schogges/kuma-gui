@@ -15,7 +15,11 @@ export const features = () => {
       }
     },
     'use unified-resource-naming': (_can: unknown, { dataplaneOverview, mesh }: { dataplaneOverview: DataplaneOverview, mesh: Mesh }) => {
-      return mesh.meshServices.mode === 'Exclusive' && dataplaneOverview.dataplaneType === 'standard' && dataplaneOverview.dataplaneInsight.metadata.features.includes('feature-unified-resource-naming')
+      console.log(dataplaneOverview)
+      return mesh.meshServices.mode === 'Exclusive' &&
+        dataplaneOverview.dataplaneType === 'standard' &&
+        (dataplaneOverview.dataplaneInsight.metadata.features.includes('feature-unified-resource-naming') ||
+          dataplaneOverview.name.includes('ingress') || dataplaneOverview.name.includes('egress'))
     },
   }
 }
