@@ -88,6 +88,7 @@
               data-testid="data-plane-collection"
               :headers="[
                 { ...me.get('headers.type'), label: '&nbsp;', key: 'type' },
+                { ...me.get('headers.zone-proxy'), label: t('http.api.property.zone-proxy'), key: 'zone-proxy' },
                 { ...me.get('headers.name'), label: 'Name', key: 'name' },
                 { ...me.get('headers.namespace'), label: 'Namespace', key: 'namespace' },
                 ...(can('use zones') ? [{ ...me.get('headers.zone'), label: 'Zone', key: 'zone' }] : []),
@@ -105,6 +106,24 @@
                 <XIcon :name="item.dataplaneType">
                   {{ t(`data-planes.type.${item.dataplaneType}`) }}
                 </XIcon>
+              </template>
+
+              <template #zone-proxy="{ row: item }">
+                <XLayout
+                  v-if="item.labels['kuma.io/listener-zoneingress'] || item.labels['kuma.io/listener-zoneegress']"
+                  variant="x-stack"
+                >
+                  <XBadge
+                    v-if="item.labels['kuma.io/listener-zoneingress']"
+                  >
+                    {{ t(`data-planes.type.zone-ingress`) }}
+                  </XBadge>
+                  <XBadge
+                    v-if="item.labels['kuma.io/listener-zoneegress']"
+                  >
+                    {{ t(`data-planes.type.zone-egress`) }}
+                  </XBadge>
+                </XLayout>
               </template>
 
               <template #name="{ row: item }">
@@ -146,7 +165,7 @@
                   >
                     <XCopyButton :text="service">
                       <XAction
-                        v-if="['standard', 'zone-proxy', 'zone-ingress', 'zone-egress'].includes(row.dataplaneType)"
+                        v-if="row.dataplaneType === 'standard'"
                         :to="{
                           name: 'service-detail-view',
                           params: {
