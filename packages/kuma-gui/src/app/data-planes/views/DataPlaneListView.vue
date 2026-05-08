@@ -88,11 +88,11 @@
               data-testid="data-plane-collection"
               :headers="[
                 { ...me.get('headers.type'), label: '&nbsp;', key: 'type' },
-                { ...me.get('headers.zone-proxy'), label: t('http.api.property.zone-proxy'), key: 'zone-proxy' },
                 { ...me.get('headers.name'), label: 'Name', key: 'name' },
                 { ...me.get('headers.namespace'), label: 'Namespace', key: 'namespace' },
                 ...(can('use zones') ? [{ ...me.get('headers.zone'), label: 'Zone', key: 'zone' }] : []),
                 ...(can('use service-insights', props.mesh) ? [{ ...me.get('headers.services'), label: 'Services', key: 'services' }] : []),
+                { ...me.get('headers.zone-proxy'), label: t('http.api.property.zone-proxy'), key: 'zone-proxy' },
                 { ...me.get('headers.certificate'), label: 'Certificate info', key: 'certificate' },
                 { ...me.get('headers.status'), label: 'Status', key: 'status' },
                 { ...me.get('headers.warnings'), label: 'Warnings', key: 'warnings', hideLabel: true },
@@ -106,24 +106,6 @@
                 <XIcon :name="item.dataplaneType">
                   {{ t(`data-planes.type.${item.dataplaneType}`) }}
                 </XIcon>
-              </template>
-
-              <template #zone-proxy="{ row: item }">
-                <XLayout
-                  v-if="item.labels['kuma.io/listener-zoneingress'] || item.labels['kuma.io/listener-zoneegress']"
-                  variant="x-stack"
-                >
-                  <XBadge
-                    v-if="item.labels['kuma.io/listener-zoneingress']"
-                  >
-                    {{ t(`data-planes.type.zone-ingress`) }}
-                  </XBadge>
-                  <XBadge
-                    v-if="item.labels['kuma.io/listener-zoneegress']"
-                  >
-                    {{ t(`data-planes.type.zone-egress`) }}
-                  </XBadge>
-                </XLayout>
               </template>
 
               <template #name="{ row: item }">
@@ -216,6 +198,24 @@
                 <template v-else>
                   {{ t('common.collection.none') }}
                 </template>
+              </template>
+
+              <template #zone-proxy="{ row: item }">
+                <XLayout
+                  v-if="item.labels['kuma.io/listener-zoneingress'] || item.labels['kuma.io/listener-zoneegress']"
+                  variant="x-stack"
+                >
+                  <XBadge
+                    v-if="item.labels['kuma.io/listener-zoneingress']"
+                  >
+                    {{ t(`data-planes.type.zone-ingress`) }}
+                  </XBadge>
+                  <XBadge
+                    v-if="item.labels['kuma.io/listener-zoneegress']"
+                  >
+                    {{ t(`data-planes.type.zone-egress`) }}
+                  </XBadge>
+                </XLayout>
               </template>
 
               <template #certificate="{ row }">

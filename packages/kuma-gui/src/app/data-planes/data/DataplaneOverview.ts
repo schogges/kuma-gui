@@ -34,7 +34,7 @@ export const DataplaneOverview = {
     return {
       ...item,
       id: item.name,
-      name: labels['kuma.io/display-name'] ?? item.name,
+      name: labels['kuma.io/display-name'] || item.name,
       namespace: labels['k8s.kuma.io/namespace'] ?? '',
       dataplane: {
         networking,

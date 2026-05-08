@@ -41,12 +41,6 @@ export default ({ env, fake }: Dependencies): ResponseHandler => (req) => {
       case defaultType === 'delegated':
       case name.includes('-delegated'):
         return 'DELEGATED'
-      case name.includes('ingress') && name.includes('egress'):
-        return 'INGRESS-EGRESS'
-      case name.includes('ingress'):
-        return 'INGRESS'
-      case name.includes('egress'):
-        return 'EGRESS'
       default:
         return 'STANDARD'
     }
@@ -120,19 +114,11 @@ export default ({ env, fake }: Dependencies): ResponseHandler => (req) => {
           }),
         },
       },
-      ...(k8s
-        ? {
-          labels: {
-            'kuma.io/display-name': displayName,
-            'k8s.kuma.io/namespace': nspace,
-          },
-        }
-        : {}),
       labels: {
-        'kuma.io/display-name': displayName,
+        'kuma.io/display-name': displayName || name,
         ...(k8s && { 'k8s.kuma.io/namespace': nspace }),
-        ...(type.includes('INGRESS') && { 'kuma.io/listener-zoneingress': 'enabled' }),
-        ...(type.includes('EGRESS') && { 'kuma.io/listener-zoneegress': 'enabled' }),
+        ...(name.includes('ingress') && { 'kuma.io/listener-zoneingress': 'enabled' }),
+        ...(name.includes('egress') && { 'kuma.io/listener-zoneegress': 'enabled' }),
       },
       dataplaneInsight: {
         ...(isMtlsEnabled ? {

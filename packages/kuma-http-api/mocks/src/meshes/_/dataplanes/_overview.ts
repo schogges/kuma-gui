@@ -43,13 +43,13 @@ export default ({ fake, pager, env }: Dependencies): ResponseHandler => (req) =>
         return 'BUILTIN'
       case query.get('filter[labels.kuma.io/listener-zoneingress]') === 'enabled' && query.get('filter[labels.kuma.io/listener-zoneegress]') === 'enabled':
       case _name.includes('ingress') && _name.includes('egress'):
-        return 'INGRESS-EGRESS'
+        return 'STANDARD-INGRESS-EGRESS'
       case query.get('filter[labels.kuma.io/listener-zoneingress]') === 'enabled':
       case _name.includes('ingress'):
-        return 'INGRESS'
+        return 'STANDARD-INGRESS'
       case query.get('filter[labels.kuma.io/listener-zoneegress]') === 'enabled':
       case _name.includes('egress'):
-        return 'EGRESS'
+        return 'STANDARD-EGRESS'
       default:
         return ''
     }
@@ -96,7 +96,7 @@ export default ({ fake, pager, env }: Dependencies): ResponseHandler => (req) =>
                   ipFamilyMode: fake.helpers.arrayElement(['UnSpecified', 'DualStack', 'IPv4', 'IPv6']),
                 },
               }),
-              ...(type === 'STANDARD' ? {
+              ...(type.includes('STANDARD') ? {
                 // normal proxies have inbound and outbound
                 inbound: Array.from({ length: inboundCount }).map((_) => {
                   return {
