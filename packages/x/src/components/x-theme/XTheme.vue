@@ -47,13 +47,6 @@ import '@kong-ui-public/app-layout/dist/style.css'
       background-color: var(--icon-color, var(--icon-color-dataplane-standard, currentColor));
     }
   }
-  @keyframes icon-dataplane-zone-proxy {
-    100% {
-      -webkit-mask-image: var(--icon-dataplane-zone-proxy-glyph);
-      mask-image: var(--icon-dataplane-zone-proxy-glyph);
-      background-color: var(--icon-color, var(--icon-color-dataplane-zone-proxy, currentColor));
-    }
-  }
   @keyframes icon-dataplane-zone-ingress {
     100% {
       -webkit-mask-image: var(--icon-dataplane-zone-ingress-glyph);
@@ -326,7 +319,6 @@ import '@kong-ui-public/app-layout/dist/style.css'
     --icon-zone-egress-glyph: url('@/assets/images/navigation/icon-zone-egresses.svg?inline');
     --icon-configuration-glyph: url('@/assets/images/navigation/icon-configuration.svg?inline');
     --icon-dataplane-standard-glyph: url('@/assets/images/east-west.svg?inline');
-    --icon-dataplane-zone-proxy-glyph: url('@/assets/images/network.svg?inline');
     --icon-dataplane-zone-ingress-glyph: url('@/assets/images/network.svg?inline');
     --icon-dataplane-zone-egress-glyph: url('@/assets/images/network.svg?inline');
     --icon-dataplane-builtin-glyph: url('@/assets/images/gateway.svg?inline');
@@ -366,7 +358,6 @@ import '@kong-ui-public/app-layout/dist/style.css'
     /*end deprecated */
 
     --icon-dataplane-standard: icon-dataplane-standard;
-    --icon-dataplane-zone-proxy: icon-dataplane-zone-proxy;
     --icon-dataplane-zone-ingress: icon-dataplane-zone-ingress;
     --icon-dataplane-zone-egress: icon-dataplane-zone-egress;
     --icon-dataplane-builtin: icon-dataplane-builtin;
