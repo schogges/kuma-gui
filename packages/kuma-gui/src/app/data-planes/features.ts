@@ -15,7 +15,6 @@ export const features = () => {
       }
     },
     'use unified-resource-naming': (_can: unknown, { dataplaneOverview, mesh }: { dataplaneOverview: DataplaneOverview, mesh: Mesh }) => {
-      console.log(dataplaneOverview)
       return mesh.meshServices.mode === 'Exclusive' &&
         dataplaneOverview.dataplaneType === 'standard' &&
         (dataplaneOverview.dataplaneInsight.metadata.features.includes('feature-unified-resource-naming') ||
